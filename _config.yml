@@ -1,30 +1,56 @@
-###########
-# site.title, site.url, site.author.name
+# Jekyll configuration
 
-title:   'Just do something what I what'
-author:
-  name:  'Caozuoking'
+name: Blog Name
+description: Software Developer
 
-## 提示: 
-#  在您的模板中使用site.path，使其适用于两种协议，例如 http和https
-#  使用site.url仅内部的网络馈源模板（外部需要完整的含协议的URL）
+# Url is currently only used only for the RSS feed in feed.xml
+url: http://streetturtle.github.io
+#url: http://localhost:4000
 
-path: /jekyll-minimal-theme-zh-cmn-hans
-url:  'http://gledos.science/jekyll-minimal-theme-zh-cmn-hans/'
+# For a project page here should be a project name. Otherwise (for user's/organization's page leave it empty)
+baseurl: '/jekyll-clean-dark'
 
-########
-# 更多设置
+author: Pavel Makhov
+copyright: 2015-2018
+
+share:
+  facebook: true
+  twitter: true
+  gplus: true
+  linkedin: true
+  pinterest: true
+  email: true
+
+social:
+  github: streetturtle
+  stackoverflow: ''
+  linkedin:
+  instagram: ''
+  lastfm: ''
+  rss: feed.xml
+
+# Google Analytics key, leave blank to ignore
+google_analytics_key:
+# Yandex metrica (https://metrica.yandex.com/) leave blank to ignore or put true to use
+yandex_metrica:
+
+
+# Set this to your disqus shortname to enable comments. Note that the 'comments'
+# setting below must also be true. Individual posts can override 'comments' to
+# disable on a post-by-post basis
+disqus: streetturtle
+comments: false
+
+permalink: /:year/:month/:title/
+
+# Enable for using pages, more details are here: http://jekyllrb.com/docs/pagination/
+#paginate: 3
+
+#highlighter: rouge
 
 markdown: kramdown
+kramdown:
+  input: GFM # Enable GitHub Flavored Markdown (fenced code blocks)
+  hard_wrap: true
 
-sass:
-  sass_dir: css
-  style:    expanded
-
-permalink: /:title.html
-
-exclude:
-- README.md
-
-safe: true
-lsi: false
+exclude: ['README.md', 'LICENSE']
