@@ -1,0 +1,19 @@
+---
+layout: default
+title: 归档
+---
+
+<h1>Archive</h1>
+
+{% for post in site.posts %}
+
+<div>
+  {{ post.date | date: "%Y-%m-%d" }}
+    »
+  <span class='post-title'>
+    <a href="{{ site.path }}{{ post.url }}">{{ post.title }}</a>
+  </span>
+</div>
+
+{% endfor %}
+

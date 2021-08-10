@@ -1,18 +1,30 @@
-title: Leaf Blog
-iconURL: assets/default-icon.png
-theme: jekyll-theme-leaf
+###########
+# site.title, site.url, site.author.name
 
-# for a clean URL
-permalink: :slug
+title:   'Just do something what I what'
+author:
+  name:  'Caozuoking'
 
-social:
-  twitter: _SupunKavinda
-  github: SupunKavinda
+## 提示: 
+#  在您的模板中使用site.path，使其适用于两种协议，例如 http和https
+#  使用site.url仅内部的网络馈源模板（外部需要完整的含协议的URL）
 
-plugins:
- - jekyll-feed
- - jekyll-seo-tag
+path: /jekyll-minimal-theme-zh-cmn-hans
+url:  'http://gledos.science/jekyll-minimal-theme-zh-cmn-hans/'
 
-### comments & analytics
-hyvor_talk_website_id: 14
-google_analytics: UA-NNNNNNNN-N
+########
+# 更多设置
+
+markdown: kramdown
+
+sass:
+  sass_dir: css
+  style:    expanded
+
+permalink: /:title.html
+
+exclude:
+- README.md
+
+safe: true
+lsi: false
