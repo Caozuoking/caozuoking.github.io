@@ -1,11 +1,11 @@
 ---
 layout: page
-title: friendshttps://jekyllrb.com)
+title: friends
 ---
 
-# Friends
-
-onekingcc:  https://onekingcc.github.io/
+# 
 
 ryze：https://ryze-t.com/
+
+onekingcc:  https://onekingcc.github.io/
 
