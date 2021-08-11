@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MiniDumpWriteDump
+title: What's Jekyll?
 ---
 
 # MiniDumpWriteDump
