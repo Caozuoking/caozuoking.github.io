@@ -1,59 +1,48 @@
-# Site settings
-title: Another Blog
-url: "http://laobubu.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
-baseurl: "/jekyll-theme-EasyBook" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
-#timezone: Asia/Chongqing
-description: >
-  One or more sentences introducing this blog.
+# Setup
+title: Dark Poole
+url: https://getpoole.com
+paginate: 1
+baseurl: ""
+permalink: pretty
 
-# Your information
-email: your_email@example.com
-author: your_name
-avatar: "//www.gravatar.com/avatar/your_email_md5?d=mm&s=135"
-profile: One sentence introducing yourself.
-#twitter_username: twitter_username
-#github_username:  github_username
-profile_links:
-  Email: "mailto:your_email@example.com"
-  GitHub: "https://github.com/laobubu/jekyll-theme-EasyBook"
-  # You can add more profile links above, or edit _includes/sidebar.html 
-
-# Comment Service (Disqus or 多说)
-#  choose one and un-comment the line to active it
-#disqus_shortname: xxx   # get one: https://disqus.com/admin/signup/
-#duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
-
-excerpt_separator: <!--more-->
-
-header:
-  links:             # Links on the header. Link to in-site page with a slash as prefix
-    About: /about/
-    Category: /category/
-    Donate: https://laobubu.net/donate.html
-
-permalink: /archivers/:title
+# Gems
 plugins:
- - jekyll-paginate
- - jekyll-gist
- - jemoji
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-seo-tag
 
-# Build settings
-paginate: 5
-paginate_path: "page:num"
+# Optimize Jekyll
+exclude:
+  - .editorconfig
+  - .git
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md
 
-highlighter: rouge
-markdown: kramdown
+sass:
+  sass_dir: _sass
+  style: :compressed
 
-# https://jekyllrb.com/docs/configuration/#precedence
-defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
+# Options
 
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  math_engine: mathjax
+# Replace this value and uncomment to enable Google Analytics tracking
+# ga_analytics: UA-000000-0
+
+# Specify the author for blog posts
+author:
+  name: Mark Otto
+  url: https://twitter.com/mdo
+  email: markdotto@gmail.com
+
+# Custom vars
+version: 3.0.0
+
+# Navbar page list
+nav:
+  - title: Blog
+    url: /archive
+
+  - title: About
+    url: /about
