@@ -13,7 +13,7 @@ title: MiniDumpWriteDump
 
 我们可以将转储LSASS的进程内存。Windows允许我们创建转储文件，它是给定进程的快照。此转储包括加载的库和应用程序内存。
 
-在任务管理器中直接转储就可以，他将会生成一个dmp的文件，然后拿回本地用Minikatz解密即可。
+在任务管理器中直接转储就可以，他将会生成一个dmp的文件，然后拿回本地用Mimikatz解密即可。
 
 
 
@@ -126,4 +126,4 @@ mimikatz.exe "sekurlsa::minidump lsass.dmp" "sekurlsa::logonPasswords full" exit
 
 ![image-20210811194142907](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811194142907.png)
 
-防御的minidump 可以考虑监控NtReadVirtualMemory，修改指向的内存地址。
+防御minidump 可以考虑监控NtReadVirtualMemory，修改指向的内存地址。
