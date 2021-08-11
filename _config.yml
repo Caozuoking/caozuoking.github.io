@@ -1,6 +1,6 @@
 # Setup
-title: Dark Poole
-url: https://getpoole.com
+title: Assassination of the King in the Northeast
+url: https://caozuoking.github.io/
 paginate: 1
 baseurl: ""
 permalink: pretty
@@ -32,8 +32,8 @@ sass:
 
 # Specify the author for blog posts
 author:
-  name: Mark Otto
-  url: https://twitter.com/mdo
+  name: Caozuoking
+  url: https://twitter.com/Jack_999999999
   email: markdotto@gmail.com
 
 # Custom vars
