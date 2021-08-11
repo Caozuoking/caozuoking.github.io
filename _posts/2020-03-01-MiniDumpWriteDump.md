@@ -5,7 +5,7 @@ title: MiniDumpWriteDump
 
 
 
-## 0x01
+## 0x01 
 
 常见内网渗透会经常遇到抓取windows密码的场景，本文用来学习使用内存转储的方式来获取windows密码。
 
@@ -100,3 +100,30 @@ mimikatz.exe "sekurlsa::minidump lsass.dmp" "sekurlsa::logonPasswords full" exit
 
 ## 0x04
 
+2012年之后,windows开发了一种缓解的技术,LSASS收到PPL保护,注册表可以看到HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa的值为1,不过该保护机制默认是关闭的
+
+![image-20210811192818106](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811192818106.png)
+
+这种情况下直接抓取密码是会失败的,同样也无法转储,返回错误值0x00000005 (Access拒绝），通常我们privilege::debug
+
+是通过privilege::debug命令通过调用AdjustTokenPrivileges来启用SeDebugPrivilege,这也意味着我们要是系统管理员权限或者本地管理员权限，遇到这种情况可以使用mimikatz加载mimidrv
+
+```
+!+
+
+!processprotect /process:lsass.exe /remove
+```
+
+![image-20210811193539749](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811193539749.png)
+
+解除保护后就可以正常dump密码了
+
+
+
+## 0x05
+
+利用上述方法，可以Bypass国内的大部分AV, 面对卡巴斯基还是略差一点，不过卡巴目前还是可以通过reg的方法获取密码
+
+![image-20210811194142907](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811194142907.png)
+
+防御的minidump 可以考虑监控NtReadVirtualMemory，修改指向的内存地址。
