@@ -41,7 +41,7 @@ BOOL MiniDumpWriteDump(
 );
 ```
 
-其实并不需要全部的api，使用前面4个即可，然后看下需要的Import
+其实并不需要全部的参数，使用前面4个即可，然后看下需要的Import
 
 ![image-20210811173030733](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811173030733.png)
 
@@ -49,3 +49,13 @@ BOOL MiniDumpWriteDump(
 static extern bool MiniDumpWriteDump(IntPtr hProcess, uint ProcessId, IntPtr hFile, int DumpType, ref MINIDUMP_EXCEPTION_INFORMATION ExceptionParam,IntPtr UserStreamParam, IntPtr CallbackParam);
 ```
 
+要获取进程 ID，我们可以使用 Process 类GetProcessesByName 方法
+
+```
+Process[] lsass = Process.GetProcessesByName("lsass");
+int lsass_pid = lsass[0].Id;
+```
+
+使用Process方法的时候需要引入Diagnostics
+
+![image-20210811174541665](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811174541665.png)
