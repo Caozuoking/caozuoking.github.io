@@ -1,70 +1,78 @@
-// Body resets
-//
-// Update the foundational and global aspects of the page.
-
-* {
-  box-sizing: border-box;
-}
-
 body {
-  margin: 0;
-  font-family: var(--body-font);
-  font-size: var(--body-font-size);
-  line-height: var(--body-line-height);
-  color: var(--body-color);
-  background-color: var(--body-bg);
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+	margin: 0;
+	font-family: $base-font-family;
+	font-size: $base-font-size;
+	line-height: $base-line-height;
 }
-
-// No `:visited` state is required by default (browsers will use `a`)
 a {
-  color: var(--link-color);
-
-  // `:focus` is linked to `:hover` for basic accessibility
-  &:hover,
-  &:focus {
-    color: var(--link-hover-color);
-  }
-
-  strong {
-    color: inherit;
-  }
+	text-decoration: none;
+	color: #036;
 }
-
-img {
-  display: block;
-  max-width: 100%;
-  margin-bottom: var(--spacer);
-  border-radius: var(--border-radius);
+a:hover, a:focus {
+	text-decoration:underline;
+	color: #069;
 }
-
+blockquote {
+	background: #FFF;
+	margin:0;
+	padding: 5px 20px;
+	border-left: 10px solid #CCC;
+}
+code,pre {
+	font-family:  $code-font-family;
+	font-size: $code-font-size;
+}
+code {
+	color: #900;
+	background-color: #fff;
+	padding: 2px 5px;
+	border-radius: 5px;
+}
+pre {
+	overflow-x: auto;
+	padding: 20px 50px;
+}
+pre, pre code {
+	color: #fafafa;
+	background-color: #223;
+}
+pre code {
+	padding: 0;	
+}
+.hide {
+    display: none;
+}
+.center {
+	text-align: center;
+}
 table {
-  margin-bottom: 1rem;
-  width: 100%;
-  border: 0 solid var(--border-color);
-  border-collapse: collapse;
+	border-collapse: collapse;
+	border-spacing: 0;
+    margin: 10pt auto;
+	background: #FFF;
+
+	td, th {
+		border: 1px solid #CCC;
+		padding: 5px 15px;
+		margin: 0;
+	}
+	
+	th {
+		border-color: #555;
+		background: #555;
+		color: #eee;
+		font-weight:normal;
+	}
+	
+	tr:hover {
+		background: rgba(255,255,0,0.2);
+	}
 }
 
-td,
-th {
-  padding: .25rem .5rem;
-  border-color: inherit;
-  border-style: solid;
-  border-width: 0;
-  border-bottom-width: 1px;
+h1,h2,h3,h4,h5,h6{
+	font-weight: normal;
 }
 
-th {
-  text-align: left;
-}
-
-thead th {
-  border-bottom-color: currentColor;
-}
-
-mark {
-  padding: .15rem;
-  background-color: var(--yellow-100);
-  border-radius: .125rem;
+.MathJax_SVG_Display, .MathJax_Display, .MJXc-display, .MathJax_PHTML_Display {
+    overflow-x: auto;
 }
