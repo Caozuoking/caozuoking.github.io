@@ -49,5 +49,4 @@ keko利用
 
 ![image-20210813113100396](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210813113100396.png)
 
-![image-20210813113521561](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210813113521561.png)
 
