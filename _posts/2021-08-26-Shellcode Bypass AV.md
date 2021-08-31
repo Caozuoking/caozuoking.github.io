@@ -99,9 +99,21 @@ IntPtr.Zero);
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210830220839.png)
 
-## 0x02.加密shellcode 
+## 0x02.Encoded Shellcode 
 
 ### Caesar加密
+
+尝试使用Caesar加密方式来绕过Av，整个shellcode右移5
+
+```c#
+byte[] encoded = new byte[buf.Length];
+            for (int i = 0; i < buf.Length; i++)
+            {
+                encoded[i] = (byte)(((uint)buf[i] + 5) & 0xFF);
+            }
+```
+
+输出的生成的shellcode，此时shellcode已经被改变过了，那么再做一步解密的操作，
 
 ### XOR加密
 
