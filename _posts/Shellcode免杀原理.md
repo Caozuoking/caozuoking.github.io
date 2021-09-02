@@ -101,7 +101,5 @@ IntPtr.Zero);
 
 ## 0x03.时间判断
 
-## 0x04.DoNetToJscript
-
-## 0x05.MSHTA Bypass AV
+## 
 

