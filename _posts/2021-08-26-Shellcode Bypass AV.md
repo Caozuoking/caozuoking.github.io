@@ -210,9 +210,27 @@ Cobaltstrike 上线没有问题
 
 Sleep 代码片段
 
-![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210902003727.png)
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903113707.png)
 
-## 0x04.DoNetToJscript
+加入sleep主要是对动态如沙盒的一个测试，保证沙盒运行的时候，如果没有按照我们的时间运行就退出，停止运行shellcode，不过本身的特征还是存在
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903102751.png)
+
+生成exe后反编译测试，或者使用调试16进制编辑器查看，还是可以看到明显特征
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903100940.png)
+
+对sharp代码进行混淆，成功Bypass
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903103224.png)
+
+使用windows defender静态扫描测试
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903112347.png)
+
+该defender为测试时的最新版本
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903112454.png)
 
 ## 0x05.MSHTA Bypass AV
 
