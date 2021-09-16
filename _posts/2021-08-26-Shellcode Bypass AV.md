@@ -232,5 +232,63 @@ Sleep 代码片段
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903112454.png)
 
-## 0x05.MSHTA Bypass AV
+## 0x05.进程镂空
+
+常规做进程注入的时候会选择使用explorer.exe或者是notepad.exe的进程。常规迁移进程的时候也可以选择svchost.exe进程，这个进程一般都会有外连的行为（网络活动进程）
+
+svchost进程一般是system权限运行，所以低权限无法注入到高权限进程中，所以可以选择启动svchost进程然后修改进程，再执行我们的恶意shellcode，让程序在没有结束的时候上线
+
+听起来比较复杂，可以直接看图
+
+1.创建新的虚拟内存空间
+
+2.给线程TEB和进程PEB分配堆栈
+
+3.把exe或者是dll文件加载到内存中
+
+首先需要一个创建进程的api，CreateProcess
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210906144823.png)
+
+360的云查杀在一段时间后会把马杀掉，但是notepad.exe的进程还在，meterpreter起一个交互式shell
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210906144946.png)
+
+可以看到notepad.exe也启动了一个cmd.exe
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210906145110.png)
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210906145225.png)
+
+## 0x06.DoNetToJscript
+
+把代码放到DotNetToJscript中
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210906151026.png)
+
+```
+DotNetToJScript.exe ExampleAssembly.dll --lang=Jscript --ver=v4,v2 -o runner.js
+```
+
+编译生成js代码
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210906151426.png)
+
+然后通过wscript runner.js 执行即可上线
+
+## 0x07.MSHTA Bypass AV
+
+在某些具体攻防场景中，可以直接使用mshta的上线方法，比如使用无回显可出网命令执行的情况，可以使用如下方法，mshta的具体免杀效果取决于js的免杀效果，在本文上一节，已经把木马转换成js，并且加密，所以mshta的效果也比较好
+
+
+
+
+
+
+
+## 0x08.MSHTA Bypass AV
+
+0x06.签名注入shellcode
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210908171430.png)
 
