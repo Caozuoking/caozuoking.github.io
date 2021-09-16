@@ -276,6 +276,24 @@ DotNetToJScript.exe ExampleAssembly.dll --lang=Jscript --ver=v4,v2 -o runner.js
 
 然后通过wscript runner.js 执行即可上线
 
+简单来看这几个函数都是什么意思，setversion 函数将 Windows 脚本宿主配置为使 用.NET 框架的 4.0.30319 版本或者是2.0.50727版本，这样常见的windows服务器会带这样的.net框架
+
+然后function debug（s)这个地方空的是因为上面没运行的适合没指定debug模式
+
+最后，base64ToStream 函数是一个 Base64 解码函数，它通过 ActiveXObject 实例化利用各种.NET 类
+
+常用使用这种方法生成的js文件特征都比较明显，可以通过Js的代码混淆来绕过Av
+
+比较好用的js加密网站
+
+https://www.jsjiami.com/javascriptobfuscator.html
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210916143918.png)
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210916144040.png)
+
+混淆后的代码一样可以上线
+
 ## 0x07.MSHTA Bypass AV
 
 在某些具体攻防场景中，可以直接使用mshta的上线方法，比如使用无回显可出网命令执行的情况，可以使用如下方法，mshta的具体免杀效果取决于js的免杀效果，在本文上一节，已经把木马转换成js，并且加密，所以mshta的效果也比较好
