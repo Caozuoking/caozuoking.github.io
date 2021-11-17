@@ -4,8 +4,6 @@ title: Shellcode Bypass AV
 
 ---
 
-# Shellcode Bypass AV
-
 ## 0x01.Make a shellcode runner
 
 本文用c#来完成实现shellcode runner，首先要知道如何使用c#调用windows API，C#调用win32 API一般使用P/Invoke的方法在DLL中使用win32api
